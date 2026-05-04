@@ -17,7 +17,7 @@ Analysis of 9,986 retail orders to identify the root cause and quantify the fina
 ```bash
 pip install -r requirements.txt
 
-python 01_data_cleaning.py          # clean raw data → superstore_clean.csv + superstore.db
+python data_cleaning.py          # clean raw data → superstore_clean.csv + superstore.db
 jupyter notebook retail_analysis.ipynb  # full analysis: SQL + EDA + findings
 ```
 
