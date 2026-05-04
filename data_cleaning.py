@@ -1,5 +1,5 @@
 """
-01_data_cleaning.py
+data_cleaning.py
 
 Cleans the raw Superstore dataset and loads it into a SQLite database.
 Run this script first before opening the notebook or Power BI.
@@ -9,14 +9,12 @@ Outputs : data/superstore_clean.csv
           data/data_quality_report.csv
           data/superstore.db
 
-Run: python 01_data_cleaning.py
+Run: python data_cleaning.py
 """
 
 import sqlite3
 import warnings
 from pathlib import Path
-
-import numpy as np
 import pandas as pd
 
 warnings.filterwarnings("ignore")
