@@ -15,7 +15,7 @@ Analysis of 9,986 retail orders to identify the root cause and quantify the fina
 
 ## Retail Dashboard
 
-<img width="900" height="300" alt="2026-05-03" src="https://github.com/user-attachments/assets/db669405-f8e7-4fcf-ba40-f9822fd75a0c" />
+<img width="900" height="400" alt="2026-05-03" src="https://github.com/user-attachments/assets/db669405-f8e7-4fcf-ba40-f9822fd75a0c" />
 
 
 ## How to run
