@@ -28,7 +28,6 @@ Open `Retail_Dashboard.pbix` in Power BI Desktop to explore the interactive dash
 ```
 ├── 01_data_cleaning.py         # ETL pipeline with audit trail
 ├── retail_analysis.ipynb       # Full analysis notebook
-├── retail_queries.sql          # Standalone SQL queries
 ├── Retail_Dashboard.pbix       # Power BI dashboard
 ├── requirements.txt            # Python dependencies
 └── data/
