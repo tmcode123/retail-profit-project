@@ -15,6 +15,9 @@ Analysis of 9,986 retail orders to identify the root cause and quantify the fina
 
 ## Retail Dashboard
 
+Open `Retail_Dashboard.pbix` in Power BI Desktop to explore the interactive dashboard.
+
+
 ![img.png](img.png)
 
 
@@ -26,9 +29,6 @@ pip install -r requirements.txt
 python data_cleaning.py                 # clean raw data → superstore_clean.csv + superstore.db
 jupyter notebook retail_analysis.ipynb  # full analysis: SQL + EDA + findings
 ```
-
-Open `Retail_Dashboard.pbix` in Power BI Desktop to explore the interactive dashboard.
-
 
 ## Project structure
 
