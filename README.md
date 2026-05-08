@@ -17,9 +17,7 @@ Analysis of 9,986 retail orders to identify the root cause and quantify the fina
 
 Open `Retail_Dashboard.pbix` in Power BI Desktop to explore the interactive dashboard.
 
-
-![img.png](img.png)
-
+<img width="1296" height="732" alt="BIretailDashboard" src="https://github.com/user-attachments/assets/45f585f8-5407-44be-a12c-35fe66d2a78d" />
 
 ## How to run
 
