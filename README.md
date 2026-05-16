@@ -15,8 +15,7 @@ Analysis of 9,986 retail sales to identify the root cause and quantify the finan
 
 ## Retail Dashboard
 
-![img.png](img.png)
-
+<img width="1296" height="732" alt="image" src="https://github.com/user-attachments/assets/115625b0-6b73-4371-a722-db26dce43e9a" />
 
 ## How to run
 
