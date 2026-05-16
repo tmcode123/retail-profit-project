@@ -2,12 +2,12 @@
 
 **The problem:** Revenue grew 51% from 2014 to 2017 but profit margins are shrinking. Why?
 
-Analysis of 9,986 retail orders to identify the root cause and quantify the financial impact.
+Analysis of 9,986 retail sales to identify the root cause and quantify the financial impact.
 
 ## Key findings
 
-- **The tipping point is 20% discount.** Orders below this threshold average 17-34% margin; above it, 91%+ of orders lose money
-- **13.9% of orders are over-discounted.** These 1,392 orders destroyed \$135,364 in profit while the rest of the business generated \$421,378
+- **The tipping point is 20% discount.** Sales below this threshold average 17-34% margin; above it, 91%+ of sales lose money.
+- **13.9% of sales are over-discounted.** These 1,392 sales destroyed \$135,364 in profit while the rest of the business generated \$421,378
 - **Tables and Bookcases lose money on average.** Average discounts of 26% push both sub-categories into negative margin territory
 - **The Central region has the lowest margin (7.9%) and the highest average discount.**
 - **Capping discounts at 20%** across Furniture could recover an estimated \$80,000 – \$100,000 in annual profit
@@ -15,9 +15,8 @@ Analysis of 9,986 retail orders to identify the root cause and quantify the fina
 
 ## Retail Dashboard
 
-Open `Retail_Dashboard.pbix` in Power BI Desktop to explore the interactive dashboard.
+![img.png](img.png)
 
-<img width="1296" height="732" alt="BIretailDashboard" src="https://github.com/user-attachments/assets/45f585f8-5407-44be-a12c-35fe66d2a78d" />
 
 ## How to run
 
@@ -27,6 +26,9 @@ pip install -r requirements.txt
 python data_cleaning.py                 # clean raw data → superstore_clean.csv + superstore.db
 jupyter notebook retail_analysis.ipynb  # full analysis: SQL + EDA + findings
 ```
+
+Open `Retail_Dashboard.pbix` in Power BI Desktop to explore the interactive dashboard.
+
 
 ## Project structure
 

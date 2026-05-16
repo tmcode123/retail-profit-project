@@ -1,6 +1,4 @@
 """
-data_cleaning.py
-
 Cleans the raw Superstore dataset and loads it into a SQLite database.
 Run this script first before opening the notebook or Power BI.
 
@@ -8,8 +6,6 @@ Input   : data/superstore_raw.csv
 Outputs : data/superstore_clean.csv
           data/data_quality_report.csv
           data/superstore.db
-
-Run: python data_cleaning.py
 """
 
 import sqlite3
@@ -27,7 +23,7 @@ CLEAN_PATH   = DATA_DIR / "superstore_clean.csv"
 QUALITY_PATH = DATA_DIR / "data_quality_report.csv"
 DB_PATH      = DATA_DIR / "superstore.db"
 
-# Discount brackets — used to group orders by how heavily discounted they were.
+# Discount brackets used to group orders by how heavily discounted they were.
 # This is the core lens for the discount-profit analysis.
 DISCOUNT_BINS: list[float] = [-0.01, 0, 0.1, 0.2, 0.3, 0.4, 0.5, 1.0]
 DISCOUNT_LABELS: list[str] = [
@@ -40,7 +36,9 @@ HIGH_DISCOUNT_THRESHOLD: float = 0.2
 
 
 def log_step(msg: str) -> None:
-    """Print a progress message so you can follow what the script is doing."""
+    """
+    Print a progress message so you can follow what the script is doing.
+    """
     print(f"[ETL] {msg}")
 
 
@@ -60,23 +58,14 @@ def check_files_exist() -> None:
 def quality_report(df: pd.DataFrame, name: str) -> pd.DataFrame:
     """
     Produces a data quality summary for a given dataframe.
-
     For each column it reports the dtype, null count, null percentage,
     and number of unique values.
-
-    Args:
-        df:   The dataframe to profile.
-        name: A label for this dataset shown in the 'dataset' column.
-
-    Returns:
-        A dataframe with one row per column and quality metrics as columns.
     """
     return pd.DataFrame({
         "dataset"   : name,
         "column"    : df.columns,
         "dtype"     : df.dtypes.values,
         "null_count": df.isnull().sum().values,
-        "null_pct"  : (df.isnull().mean() * 100).round(1).values,
         "unique"    : [df[c].apply(str).nunique() for c in df.columns],
     })
 
@@ -91,8 +80,7 @@ log_step("Loading raw data ...")
 
 # encoding='latin-1' handles special characters in product names
 df = pd.read_csv(str(RAW_PATH), encoding="latin-1")
-log_step(f"  superstore_raw : {df.shape[0]:,} rows × {df.shape[1]} cols")
-
+log_step(f"Superstore_raw : {df.shape[0]:,} rows × {df.shape[1]} cols")
 
 # Clean the data
 log_step("Cleaning data ...")
@@ -105,7 +93,7 @@ df["Ship Date"]  = pd.to_datetime(df["Ship Date"])
 # These are likely data entry errors — we keep the first occurrence.
 before = len(df)
 df = df.drop_duplicates(subset=["Order ID", "Product ID"], keep="first")
-log_step(f"  Removed {before - len(df)} duplicate order-product entries")
+log_step(f"Removed {before - len(df)} duplicate order-product entries")
 
 # Drop columns that add no analytical value
 # Row ID is just a sequence number, Country is always United States
@@ -130,11 +118,11 @@ df["discount_bracket"] = pd.cut(
     labels=DISCOUNT_LABELS,
 )
 
-log_step(f"  Clean shape: {df.shape}")
-log_step(f"  Date range: {df['Order_Date'].min().date()} to {df['Order_Date'].max().date()}")
-log_step(f"  Total revenue: ${df['Sales'].sum():,.0f}")
-log_step(f"  Total profit:  ${df['Profit'].sum():,.0f}")
-log_step(f"  Overall margin: {df['Profit'].sum()/df['Sales'].sum()*100:.1f}%")
+log_step(f"Clean shape: {df.shape}")
+log_step(f"Date range: {df['Order_Date'].min().date()} to {df['Order_Date'].max().date()}")
+log_step(f"Total revenue: ${df['Sales'].sum():,.0f}")
+log_step(f"Total profit:  ${df['Profit'].sum():,.0f}")
+log_step(f"Overall margin: {df['Profit'].sum()/df['Sales'].sum()*100:.1f}%")
 
 
 # Generate a data quality report
@@ -148,21 +136,18 @@ print(qr.to_string(index=False))
 log_step("Saving cleaned data ...")
 df.to_csv(str(CLEAN_PATH), index=False)
 qr.to_csv(str(QUALITY_PATH), index=False)
-log_step(f"  → {CLEAN_PATH}   ({len(df):,} rows)")
-log_step(f"  → {QUALITY_PATH}")
-
-print("\nSummary Stats")
-print(df[["Sales", "Profit", "Discount", "profit_margin"]].describe().round(2))
+log_step(f"→ {CLEAN_PATH}   ({len(df):,} rows)")
+log_step(f"→ {QUALITY_PATH}")
 
 
 # Load into SQLite database
 log_step("Creating SQLite database ...")
 
 with sqlite3.connect(str(DB_PATH)) as conn:
-    df.to_sql("orders", conn, if_exists="replace", index=False)
+    df.to_sql("retail_sales", conn, if_exists="replace", index=False)
     cursor = conn.cursor()
-    cursor.execute("SELECT COUNT(*) FROM orders")
+    cursor.execute("SELECT COUNT(*) FROM retail_sales")
     row_count: int = cursor.fetchone()[0]
 
-log_step(f"  → {DB_PATH}   ({row_count:,} rows in 'orders' table)")
+log_step(f"→ {DB_PATH}   ({row_count:,} rows in 'retail_sales' table)")
 log_step("Done ✓")
